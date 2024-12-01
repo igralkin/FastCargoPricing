@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "06dd6595-403b-454a-a740-faa944f96214",
+		"name": "FastCargoPricing API",
+		"description": "Postman Collection for testing FastCargoPricing API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14004692"
+	},
+	"item": [
+		{
+			"name": "Add Rate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.environment.set(\"rate_id\", response.rate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "date",
+							"value": "2023-11-30",
+							"type": "text"
+						},
+						{
+							"key": "cargo_type",
+							"value": "Glass",
+							"type": "text"
+						},
+						{
+							"key": "rate",
+							"value": "0.05",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "{{user_id}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/rates/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rates",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate Insurance New",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/calculate/?cargo_type=Glass&declared_value=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"calculate",
+						""
+					],
+					"query": [
+						{
+							"key": "cargo_type",
+							"value": "Glass"
+						},
+						{
+							"key": "declared_value",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Rate",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rates/{{rate_id}}?new_rate=0.08&user_id={{user_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rates",
+						"{{rate_id}}"
+					],
+					"query": [
+						{
+							"key": "new_rate",
+							"value": "0.08"
+						},
+						{
+							"key": "user_id",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate Insurance Updated",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/calculate/?cargo_type=Glass&declared_value=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"calculate",
+						""
+					],
+					"query": [
+						{
+							"key": "cargo_type",
+							"value": "Glass"
+						},
+						{
+							"key": "declared_value",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Rate",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rates/{{rate_id}}?user_id={{user_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rates",
+						"{{rate_id}}"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "rate_id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
